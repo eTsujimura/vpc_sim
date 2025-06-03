@@ -238,7 +238,7 @@ ETA = ([0] + [INITIAL_STOCK] + [0]*60)
 ETA.reverse()
 ANNUAL_IMPORT_CARS = int(sum(ETA) / NUMBER_OF_LINES + 100)
 PARTS_REQURED = st.sidebar.number_input("Parts Required (%)", value=30)
-AVE_REPAIR_HOUR = st.number_input("ave repair hour per car", 3.07)
+AVE_REPAIR_HOUR = st.sidebar.number_input("ave repair hour per car", 3.07)
 
 DEFECT_RATE = [[0, AVE_REPAIR_HOUR], [80, AVE_REPAIR_HOUR]]
 PARTS_LEADTIME = [[0, 1], [80, 60]]
