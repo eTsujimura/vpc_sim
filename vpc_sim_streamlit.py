@@ -238,10 +238,12 @@ ETA = ([0] + [INITIAL_STOCK] + [0]*60)
 ETA.reverse()
 ANNUAL_IMPORT_CARS = int(sum(ETA) / NUMBER_OF_LINES + 100)
 PARTS_REQURED = st.sidebar.number_input("Parts Required (%)", value=30)
-AVE_REPAIR_HOUR = st.sidebar.number_input("ave repair hour per car", 0.1)
+FILL_RATE = st.sidebar.slider("Fill rate", 0, 100, 80, 1)  # 0 - 100
+AVE_REPAIR_HOUR1 = st.sidebar.number_input("ave repair hour (small)", value=3.07)
+AVE_REPAIR_HOUR2 = st.sidebar.number_input("ave repair hour (large)", value=3.07)
 
-DEFECT_RATE = [[0, AVE_REPAIR_HOUR], [80, AVE_REPAIR_HOUR]]
-PARTS_LEADTIME = [[0, 1], [80, 60]]
+DEFECT_RATE = [[0, AVE_REPAIR_HOUR1], [80, AVE_REPAIR_HOUR2]]
+PARTS_LEADTIME = [[0, 1], [FILL_RATE, 60]]  # Stock parts 1 days BO 60 days
 
 # Run simulation
 if st.sidebar.button("Run Simulation"):
