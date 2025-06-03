@@ -227,18 +227,20 @@ st.title("VPC Simulator")
 
 # Simulation parameters
 NUMBER_OF_LINES = st.sidebar.number_input("Number of Lines", value=1)
-PER_SHIFT_MAX_CLOCK = st.sidebar.number_input("Per Shift Max Clock (minutes)", value=8*60)
-SHIFT_PER_DAY = st.sidebar.number_input("Shifts per Day", value=2)
+PER_SHIFT_MAX_CLOCK = 8*60  # 8 hours
+SHIFT_PER_DAY = st.sidebar.number_input("Shifts per Day", value=1)
 SIMULATE_DAYS = st.sidebar.number_input("Simulate Days", value=80)
 TAKT_TIME = st.sidebar.number_input("Takt Time", value=8)
 REPAIR_BAYS = st.sidebar.number_input("Repair Bays", value=18)
 DELTA = 1.00*SHIFT_PER_DAY
-INITIAL_STOCK = 0
-ETA = ([0] + [1000] + [0]*60)
+INITIAL_STOCK = st.sidebar.number_input("Initial stock", value=1000)
+ETA = ([0] + [INITIAL_STOCK] + [0]*60)
 ETA.reverse()
 ANNUAL_IMPORT_CARS = int(sum(ETA) / NUMBER_OF_LINES + 100)
 PARTS_REQURED = st.sidebar.number_input("Parts Required (%)", value=30)
-DEFECT_RATE = [[0, 3.07], [80, 3.07]]
+AVE_REPAIR_HOUR = st.number_input("ave repair hour per car", 3.07)
+
+DEFECT_RATE = [[0, AVE_REPAIR_HOUR], [80, AVE_REPAIR_HOUR]]
 PARTS_LEADTIME = [[0, 1], [80, 60]]
 
 # Run simulation
@@ -288,31 +290,31 @@ if st.sidebar.button("Run Simulation"):
         lastReport = lastReport + "Daily parts waiting :\n{}\n\n".format(daily_partsWaiting)
         lastReport = lastReport + r + "\n"
 
-    st.write(lastReport)
+##    st.write(lastReport)
 
-    st.write("###### Slots status ######")
-    v.s01.status()
-    v.s02.status()
-    v.s03.status()
-    v.s04.status()
-    v.s05.status()
-    v.r01.status()
-    v.s06.status()
-    v.p01.status()
+##    st.write("###### Slots status ######")
+##    v.s01.status()
+##    v.s02.status()
+##    v.s03.status()
+##    v.s04.status()
+##    v.s05.status()
+##    v.r01.status()
+##    v.s06.status()
+##    v.p01.status()
 
-    st.write("###### max. parts waiting######")
-    st.write(max(daily_partsWaiting))
-
-    st.write("###### max. repair waiting ######")
-    st.write(max(dailiy_repairWaiting))
-
-    st.write("###### max. buffer before final ######")
-    st.write(max(daily_inprocess))
-
-    st.write("###### max. parking ######")
+##    st.write("###### max. parts waiting######")
+##    st.write(max(daily_partsWaiting))
+##
+##    st.write("###### max. repair waiting ######")
+##    st.write(max(dailiy_repairWaiting))
+##
+##    st.write("###### max. buffer before final ######")
+##    st.write(max(daily_inprocess))
+##
+##    st.write("###### max. parking ######")
     z = zip(daily_partsWaiting, dailiy_repairWaiting, daily_inprocess)
-    daily_combined = [x + y + z for (x, y, z) in z]
-    st.write(max(daily_combined))
+##    daily_combined = [x + y + z for (x, y, z) in z]
+##    st.write(max(daily_combined))
 
     x = range(SIMULATE_DAYS)
     fig = pyplot.figure(figsize=(8,5))
