@@ -1,6 +1,5 @@
 import streamlit as st
 import random
-import plotly.graph_objects as go
 from matplotlib import pyplot
 
 # Define the Slot class
@@ -320,68 +319,23 @@ if st.sidebar.button("Run Simulation"):
 ##    st.write(max(daily_combined))
 
     x = range(SIMULATE_DAYS)
-    x = list(x)
+    fig = pyplot.figure(figsize=(8,5))
+    pyplot.subplot(3,1,1)
+    pyplot.plot(x,daily_productios, label="production")
+    pyplot.plot(x,daily_PDI_in, label="PDI-IN")
+    pyplot.legend()
+    pyplot.ylabel('Production')
 
-    tab1, tab2 = st.tabs(["Plotly", "Matplotlib"])
-    with tab1:
-        fig1 = go.Figure()
-        fig1.add_trace(go.Scatter(
-        x = x,
-        y = daily_PDI_in,
-        name = "PDI-<b>In</b>",
-        connectgaps=True
-        ))
+    pyplot.subplot(3,1,2)
+    pyplot.plot(x,daily_prePDI, label="Pre-PDI")
+    pyplot.legend()
+    pyplot.ylabel('Pre-PDI')
+    pyplot.ylim(0, max(daily_prePDI))
 
-        fig1.add_trace(go.Scatter(
-        x = x,
-        y = daily_productios,
-        name = "PDI-<b>Out</b>",
-        connectgaps=True
-        ))
-        st.plotly_chart(fig1, theme="streamlit")
+    pyplot.subplot(3,1,3)
+    pyplot.plot(x,dailiy_repairWaiting, label="repair")
+    pyplot.plot(x,daily_partsWaiting, label="parts")
+    pyplot.legend()
+    pyplot.ylabel('Block Stock')
+    st.pyplot(fig)
 
-        fig2 = go.Figure()
-        fig2.add_trace(go.Scatter(
-        x = x,
-        y = daily_prePDI,
-        name = "Pre-PDI-IN",
-        connectgaps=True
-        ))
-        st.plotly_chart(fig2, theme="streamlit")
-
-        fig3 = go.Figure()
-        fig3.add_trace(go.Scatter(
-        x = x,
-        y = dailiy_repairWaiting,
-        name = "repair",
-        connectgaps=True
-        ))
-
-        fig3.add_trace(go.Scatter(
-        x = x,
-        y = daily_partsWaiting,
-        name = "parts",
-        connectgaps=True
-        ))
-        st.plotly_chart(fig3, theme="streamlit")
-
-    with tab2:
-        fig = pyplot.figure(figsize=(8,5))
-        pyplot.subplot(3,1,1)
-        pyplot.plot(x,daily_productios, label="production")
-        pyplot.plot(x,daily_PDI_in, label="PDI-IN")
-        pyplot.legend()
-        pyplot.ylabel('Production')
-
-        pyplot.subplot(3,1,2)
-        pyplot.plot(x,daily_prePDI, label="Pre-PDI")
-        pyplot.legend()
-        pyplot.ylabel('Pre-PDI')
-        pyplot.ylim(0, max(daily_prePDI))
-
-        pyplot.subplot(3,1,3)
-        pyplot.plot(x,dailiy_repairWaiting, label="repair")
-        pyplot.plot(x,daily_partsWaiting, label="parts")
-        pyplot.legend()
-        pyplot.ylabel('Block Stock')
-        st.pyplot(fig)
