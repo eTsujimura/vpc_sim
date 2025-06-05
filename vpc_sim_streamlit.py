@@ -339,7 +339,6 @@ if st.sidebar.button("Run Simulation"):
         connectgaps=True
         ))
 
-        fig1 = go.Figure()
         fig1.add_trace(go.Scatter(
         x = x,
         y = daily_prePDI,
@@ -347,7 +346,6 @@ if st.sidebar.button("Run Simulation"):
         connectgaps=True
         ))
 
-        fig1 = go.Figure()
         fig1.add_trace(go.Scatter(
         x = x,
         y = dailiy_repairWaiting,
