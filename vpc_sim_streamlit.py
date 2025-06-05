@@ -227,7 +227,7 @@ def return_repairtime_x_persent(dRate):
 st.title("VPC Simulator")
 
 # Simulation parameters
-NUMBER_OF_LINES = st.sidebar.number_input("Number of Lines", value=1)
+NUMBER_OF_LINES = st.sidebar.number_input("Number of Lines", 1)
 PER_SHIFT_MAX_CLOCK = 8*60  # 8 hours
 SHIFT_PER_DAY = st.sidebar.number_input("Shifts per Day", value=1)
 SIMULATE_DAYS = st.sidebar.number_input("Simulate Days", value=80)
