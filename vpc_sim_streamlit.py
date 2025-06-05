@@ -338,32 +338,30 @@ if st.sidebar.button("Run Simulation"):
         name = "PDI-<b>Out</b>",
         connectgaps=True
         ))
-        st.plotly_chart(fig1, theme="streamlit")
 
-        fig2 = go.Figure()
-        fig2.add_trace(go.Scatter(
+        fig1 = go.Figure()
+        fig1.add_trace(go.Scatter(
         x = x,
         y = daily_prePDI,
         name = "Pre-PDI-IN",
         connectgaps=True
         ))
-        st.plotly_chart(fig2, theme="streamlit")
 
-        fig3 = go.Figure()
-        fig3.add_trace(go.Scatter(
+        fig1 = go.Figure()
+        fig1.add_trace(go.Scatter(
         x = x,
         y = dailiy_repairWaiting,
         name = "repair",
         connectgaps=True
         ))
 
-        fig3.add_trace(go.Scatter(
+        fig1.add_trace(go.Scatter(
         x = x,
         y = daily_partsWaiting,
         name = "parts",
         connectgaps=True
         ))
-        st.plotly_chart(fig3, theme="streamlit")
+        st.plotly_chart(fig1, theme="streamlit")
 
     with tab2:
         fig = pyplot.figure(figsize=(8,5))
